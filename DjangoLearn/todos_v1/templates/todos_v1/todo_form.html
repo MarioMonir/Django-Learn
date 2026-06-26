@@ -1,0 +1,35 @@
+{% extends "todos_v1/base.html" %}
+
+{% block title %}{{ action }} Todo{% endblock %}
+
+{% block content %}
+    <div class="bg-white rounded-xl shadow-sm px-8 py-8 max-w-lg mx-auto">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">{{ action }} Todo</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                <input
+                    type="text"
+                    name="title"
+                    value="{{ todo.title }}"
+                    required
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+            </div>
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <textarea
+                    name="description"
+                    rows="3"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >{{ todo.description }}</textarea>
+            </div>
+            <div class="flex items-center justify-between">
+                <a href="{% url 'todo_list_view' %}" class="text-sm text-gray-500 hover:text-gray-700">Cancel</a>
+                <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-2 rounded-lg transition">{{ action }}</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
