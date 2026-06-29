@@ -41,9 +41,16 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "DjangoLearn.ping",
-    "DjangoLearn.todos",
     "DjangoLearn.todos_v1",
+    "rest_framework",
+    "drf_spectacular",
+    "DjangoLearn.todos_v2",
 ]
+
+
+REST_FRAMEWORK = {"DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema"}
+
+SPECTACULAR_SETTINGS = {"TITLE": "Todo API", "VERSION": "2.0.0"}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

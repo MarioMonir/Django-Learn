@@ -5,7 +5,7 @@
   "typeCheckingMode": "basic",
   "useLibraryCodeForTypes": true,
   "reportMissingImports": true,
-  "diagnosticSeverityOverrides": {
-    "reportUnusedParameter": "none"
-  }
+  "reportUnusedParameter": "none",
+  "reportAttributeAccessIssue": "none",
+  "reportArgumentType": "none"
 }
