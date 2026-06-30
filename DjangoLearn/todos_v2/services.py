@@ -1,29 +1,33 @@
 import logging
 
-from DjangoLearn.todos_v2.models import Todo
+from django.contrib.auth import get_user_model
+
 from DjangoLearn.todos_v2.exceptions import TodoNotFound
+from DjangoLearn.todos_v2.models import Todo
 
 logger = logging.getLogger(__name__)
 
-
-def list_todos():
-    return Todo.objects.all()
+User = get_user_model()
 
 
-def get_todo(todo_id: int) -> Todo:
+def list_todos(user):
+    return Todo.objects.filter(user=user)
+
+
+def get_todo(todo_id: int, user) -> Todo:
     try:
-        return Todo.objects.get(pk=todo_id)
+        return Todo.objects.get(pk=todo_id, user=user)
     except Todo.DoesNotExist:
         raise TodoNotFound(todo_id)
 
 
-def create_todo(data) -> Todo:
-    logger.info("Creating todo with title: %s", data.get("title"))
-    return Todo.objects.create(**data)
+def create_todo(data, user) -> Todo:
+    logger.info("Creating todo for user %s", user.email)
+    return Todo.objects.create(user=user, **data)
 
 
-def update_todo(todo_id: int, data) -> Todo:
-    todo = get_todo(todo_id)
+def update_todo(todo_id: int, data, user) -> Todo:
+    todo = get_todo(todo_id, user)
     for field, value in data.items():
         setattr(todo, field, value)
     todo.save()
@@ -31,7 +35,7 @@ def update_todo(todo_id: int, data) -> Todo:
     return todo
 
 
-def delete_todo(todo_id: int) -> None:
-    todo = get_todo(todo_id)
+def delete_todo(todo_id: int, user) -> None:
+    todo = get_todo(todo_id, user)
     todo.delete()
     logger.info("Deleted todo %s", todo_id)

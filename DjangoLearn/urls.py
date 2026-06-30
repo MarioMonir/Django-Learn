@@ -10,6 +10,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("ping/", include("DjangoLearn.ping.urls")),
     path("v1/todos/", include("DjangoLearn.todos_v1.urls")),
+    path("api/auth/", include("DjangoLearn.users.urls")),
     path("api/v2/todos/", include("DjangoLearn.todos_v2.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path("api/docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
